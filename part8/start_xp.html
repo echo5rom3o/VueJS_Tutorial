@@ -1,46 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vue.js Tutorial | Computed Properties</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  </head>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quick XP Tracker</title>
 
-  <body>
-    <div id="app" class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1>You are a <strong></strong></h1>
-            <hr />
-          <h3>Current XP: </h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="row">
-            <div class="col-md-6">
-              <button class="btn btn-success btn-block"><span class="glyphicon glyphicon-collapse-up"></span> Add XP</button>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+	<div id="app" class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h1>You are a <strong>{{ levelSlow }}</strong></h1>
+				<hr />
+				<h3>Current XP: {{xp}}</h3>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <label>Enter xp amount:
+                <input type="text" v-model.number="customXP">
+                </label>
+                <button class="btn btn-primary" @click="addXP">Submit</button>
+                <button class="btn btn-danger" @click="resetXP">Reset</button>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <button class="btn btn-success btn-block"><span class="glyphicon glyphicon-collapse-down"></span> Decrease XP</button>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </body>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="row">
+					<div class="col-md-6">
+						<button class="btn btn-success btn-block" @click="increaseXP">Add 10</button>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<button class="btn btn-success btn-block" @click="decreaseXP">Subtract 10</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
 
-  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
-
-  <script>
-    var app = new Vue({
-      el: '#app'
-    })
-  </script>
+<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			xp: 0,
+            customXP: ' '
+		},
+		methods: {
+			increaseXP: function() {
+				return this.xp += 10
+			},
+			decreaseXP: function() {
+				return this.xp -= 10
+			},
+            addXP: function() {
+                this.xp += this.customXP
+                this.customXP = ' '
+            },
+            resetXP: function() {
+                if (confirm("Are you sure")){
+                    this.xp = 0
+                }
+            }
+		},
+        computed: {
+            levelSlow: function() {
+                if (this.xp >= 5350000) {
+                    return "Level 20"
+                } else if (this.xp >= 3850000) {
+                    return "Level 19"
+                } else if (this.xp >= 2700000) {
+                    return "Level 18"
+                } else if (this.xp >= 1900000) {
+                    return "Level 17"
+                } else if (this.xp >= 1350000) {
+                    return "Level 16"
+                } else if (this.xp >= 955000) {
+                    return "Level 15"
+                } else if (this.xp >= 665000) {
+                    return "Level 14"
+                } else if (this.xp >= 475000) {
+                    return "Level 13"
+                } else if (this.xp >= 330000) {
+                    return "Level 12"
+                } else if (this.xp >= 235000) {
+                    return "Level 11"
+                } else if (this.xp >= 160000) {
+                    return "Level 10"
+                } else if (this.xp >= 115000) {
+                    return "Level 9"
+                } else if (this.xp >= 77000) {
+                    return "Level 8"
+                } else if (this.xp >= 53000) {
+                    return "Level 7"
+                } else if (this.xp >= 35000) {
+                    return "Level 6"
+                } else if (this.xp >= 23000) {
+                    return "Level 5"
+                } else if (this.xp >= 14000) {
+                    return "Level 4"
+                } else if (this.xp >= 7500) {
+                    return "Level 3"
+                } else if (this.xp >= 3000) {
+                    return "Level 2"
+                } else {
+                    return "Level 1"
+                }
+            }
+        }
+	})
+</script>
 </html>
